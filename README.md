@@ -3,7 +3,7 @@ In this project we will try to work on DataLake using Azure Synapse and Power BI
 
 ## 🤝 Contributors
 
-| Avatar | Contributor 
+| Avatar | Contributor |
 | :---: | :--- |
 | <img src="https://github.com/TageYassir.png" width="40px;"/> | **Yassir Tagemouati** [@yassir](https://github.com/TageYassir) |
 
@@ -28,6 +28,18 @@ The infrastructure is built entirely on Microsoft Azure and includes:
 - Apache Spark Pool
 
 The environment is designed to support a scalable data platform for Supply Chain & Logistics Analytics.
+
+---
+
+# 🏛️ Solution Architecture
+
+<p align="center">
+  <img src="images/AzureArch.drawio.png" alt="Azure Solution Architecture" width="100%">
+</p>
+
+<p align="center">
+<b>Figure 1.</b> Overall Azure architecture implementing the Medallion Data Lake (Bronze → Silver → Gold).
+</p>
 
 ---
 
@@ -82,6 +94,18 @@ stlakesupply
 
 ---
 
+# 🔄 Data Pipeline Flow
+
+<p align="center">
+  <img src="images/AzurePLFlow.drawio.png" alt="Azure Data Pipeline Flow" width="100%">
+</p>
+
+<p align="center">
+<b>Figure 2.</b> End-to-end data ingestion and orchestration workflow using Azure Data Factory and Azure Synapse Analytics.
+</p>
+
+---
+
 ## 🔗 Azure Data Factory Linked Services
 
 | Linked Service | Target | Authentication | Status |
@@ -131,6 +155,18 @@ The platform follows the **Principle of Least Privilege**.
 | Role | `db_owner` |
 | Endpoint | `syn-supplychain-1-ondemand.sql.azuresynapse.net` |
 | Firewall | Azure Services + AllowAll |
+
+---
+
+# ⭐ Gold Layer Star Schema
+
+<p align="center">
+  <img src="images/GoldShema.drawio.png" alt="Gold Layer Star Schema" width="100%">
+</p>
+
+<p align="center">
+<b>Figure 3.</b> Business-oriented dimensional model (Star Schema) used for analytics and Power BI reporting.
+</p>
 
 ---
 
