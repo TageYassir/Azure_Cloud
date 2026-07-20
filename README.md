@@ -59,7 +59,6 @@ The environment is designed to support a scalable data platform for Supply Chain
 
 # 🏗️ Medallion Architecture
 
-```text
 stlakesupply
 │
 └── medallion
@@ -71,7 +70,6 @@ stlakesupply
     │
     └── gold
         └── Star Schema
-```
 
 ### Bronze
 
