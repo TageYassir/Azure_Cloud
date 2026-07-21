@@ -1,167 +1,616 @@
-# Modern Data Warehouse – Supply Chain & Logistics Analytics
+# 🚀 Modern Data Warehouse – Supply Chain & Logistics Analytics
+
+<p align="center">
 
 [![Azure](https://img.shields.io/badge/Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/)
-[![Synapse](https://img.shields.io/badge/Azure_Synapse-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/en-us/services/synapse-analytics/)
-[![ADF](https://img.shields.io/badge/Azure_Data_Factory-FF6F00?style=for-the-badge&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/en-us/services/data-factory/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Azure Synapse](https://img.shields.io/badge/Azure_Synapse-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/en-us/products/synapse-analytics)
+[![Azure Data Factory](https://img.shields.io/badge/Azure_Data_Factory-FF6F00?style=for-the-badge&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/en-us/products/data-factory)
+[![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)](https://powerbi.microsoft.com/)
+[![PySpark](https://img.shields.io/badge/PySpark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)](https://spark.apache.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-**End-to-end Modern Data Warehouse implementation on Azure for Supply Chain & Logistics Analytics.**
-
-This project follows the **Medallion Architecture (Bronze → Silver → Gold)** , orchestrated by Azure Data Factory, processed by Azure Synapse (Spark & Serverless SQL), and served via Power BI. This repository covers **Epic 1 (Infrastructure & Security)** and **Epic 2 (Data Ingestion & Orchestration)** .
-
----
-
-## 🤝 Contributors
-
-| Avatar | Contributor |
-| :---: | :--- |
-| <img src="https://github.com/TageYassir.png" width="40px;"/> | **Yassir Tagemouati** [@TageYassir](https://github.com/TageYassir) |
-
----
-
-## 📋 Table of Contents
-- [Project Overview](#-project-overview)
-- [Solution Architecture](#-solution-architecture)
-- [Tech Stack](#-tech-stack)
-- [Epic 1 – Infrastructure & Security](#-epic-1--infrastructure--security-completed)
-- [Epic 2 – Data Ingestion & Orchestration](#-epic-2--data-ingestion--orchestration-completed)
-- [Project Status](#-project-status)
-
----
-
-## 📖 Project Overview
-
-As a 2nd-year Big Data Engineering student, I built this platform to simulate a real-world enterprise data warehouse. The solution ingests simulated Oracle SCM Cloud CSV files (`suppliers`, `purchase_orders`, `deliveries`, `inventory`), processes them through a structured lakehouse, and exposes business KPIs for reporting.
-
-### Key Objectives
-- ✅ Implement the **Medallion Architecture** on Azure.
-- ✅ Enforce **Principle of Least Privilege** using Managed Identities & RBAC.
-- ✅ Build **parameterized, reusable data pipelines** in ADF.
-- ✅ Perform **data cleansing, deduplication, and type casting** using PySpark (planned for Epic 3).
-- ✅ Model a **Star Schema** for Supply Chain Analytics (planned for Epic 3).
-- ✅ Create interactive **Power BI dashboards** with DirectQuery (planned for Epic 4).
-
----
-
-## 🏛️ Solution Architecture
+</p>
 
 <p align="center">
-  <img src="images/AzureArch.drawio.png" alt="Azure Solution Architecture" width="100%">
-</p>
-<p align="center"><b>Figure 1.</b> Overall Azure architecture implementing the Medallion Data Lake.</p>
 
-<p align="center">
-  <img src="images/AzurePLFlow.drawio.png" alt="Azure Data Pipeline Flow" width="100%">
-</p>
-<p align="center"><b>Figure 2.</b> End-to-end data ingestion and orchestration workflow.</p>
+Enterprise-grade Modern Data Warehouse built on Microsoft Azure following the Medallion Architecture (Bronze → Silver → Gold) for Supply Chain & Logistics Analytics.
 
-<p align="center">
-  <img src="images/GoldShema.drawio.png" alt="Gold Layer Star Schema" width="100%">
 </p>
-<p align="center"><b>Figure 3.</b> Business-oriented dimensional model (Star Schema) for Power BI reporting.</p>
 
 ---
 
-## 🛠️ Tech Stack
+# 📖 Project Overview
+
+This repository demonstrates the implementation of a complete cloud-native Modern Data Warehouse using Microsoft Azure services.
+
+The project simulates a real enterprise Supply Chain Analytics platform by ingesting operational data exported from Oracle SCM Cloud into Azure Data Lake Storage Gen2.
+
+Data is orchestrated using Azure Data Factory, transformed with Azure Synapse Analytics (Spark), queried using Serverless SQL, and finally exposed to Power BI for business intelligence reporting.
+
+The project is divided into multiple Epics following an incremental software engineering methodology.
+
+---
+
+# 🎯 Project Objectives
+
+- Build a complete Medallion Lakehouse architecture
+- Automate data ingestion using Azure Data Factory
+- Implement metadata-driven pipelines
+- Secure resources using Managed Identities and RBAC
+- Store secrets securely using Azure Key Vault
+- Transform raw CSV files into analytics-ready Parquet datasets
+- Design a dimensional Star Schema
+- Deliver interactive Power BI dashboards
+
+---
+
+# ✨ Features
+
+- ✅ Azure Data Lake Storage Gen2
+- ✅ Azure Data Factory V2
+- ✅ Azure Synapse Analytics
+- ✅ Spark Notebooks (PySpark)
+- ✅ Serverless SQL
+- ✅ Azure Key Vault
+- ✅ Managed Identity Authentication
+- ✅ Azure RBAC
+- ✅ Metadata-driven Pipelines
+- ✅ Dynamic Parameters
+- ✅ Enterprise Data Lake
+- ✅ Medallion Architecture
+- ✅ Power BI Integration
+
+---
+
+# 👨‍💻 Author
+
+| | |
+|:--:|:--|
+| <img src="https://github.com/TageYassir.png" width="120"/> | **Yassir Tagemouati** <br><br> Big Data Engineering Student <br> Azure Data Engineering • Data Warehousing • Analytics <br><br> **GitHub:** https://github.com/TageYassir |
+
+---
+
+# 📚 Table of Contents
+
+- Project Overview
+- Solution Architecture
+- Repository Structure
+- Tech Stack
+- Data Flow
+- Epic 1 – Infrastructure & Security
+- Epic 2 – Data Ingestion & Orchestration
+- Roadmap
+- References
+
+---
+
+# 🏛️ Solution Architecture
+
+## Overall Azure Architecture
+
+<p align="center">
+<img src="images/AzureArch.drawio.png" width="100%">
+</p>
+
+<p align="center">
+<b>Figure 1.</b> Enterprise Azure architecture implementing the Medallion Lakehouse.
+</p>
+
+---
+
+## Data Ingestion Pipeline
+
+<p align="center">
+<img src="images/AzurePLFlow.drawio.png" width="100%">
+</p>
+
+<p align="center">
+<b>Figure 2.</b> Azure Data Factory orchestration workflow.
+</p>
+
+---
+
+## Gold Layer Star Schema
+
+<p align="center">
+<img src="images/GoldShema.drawio.png" width="100%">
+</p>
+
+<p align="center">
+<b>Figure 3.</b> Business-oriented Star Schema used by Power BI.
+</p>
+
+---
+
+# 📁 Repository Structure
+
+```text
+Modern-Data-Warehouse/
+│
+├── data/
+│
+├── images/
+│   ├── AzureArch.drawio.png
+│   ├── AzurePLFlow.drawio.png
+│   └── GoldShema.drawio.png
+│
+├── notebooks/
+│
+├── sql/
+│
+├── pipelines/
+│
+├── docs/
+│
+└── README.md
+```
+
+---
+
+# 🛠️ Tech Stack
 
 | Layer | Technology |
-| :--- | :--- |
-| **Storage** | Azure Data Lake Storage Gen2 (ADLS Gen2) |
-| **Orchestration** | Azure Data Factory (ADF) V2 |
-| **Processing (Batch)** | Azure Synapse Analytics – Spark Pool (PySpark) |
-| **Processing (Query)** | Azure Synapse – Serverless SQL Pool |
-| **Metadata/Secrets** | Azure Key Vault |
-| **Serving/Reporting** | Power BI (DirectQuery) |
-| **Security** | Managed Identities, RBAC, SQL `db_owner` |
+|:------|:-----------|
+| 💾 Storage | Azure Data Lake Storage Gen2 |
+| 🔄 Orchestration | Azure Data Factory |
+| ⚡ Processing | Azure Synapse Spark |
+| 🧮 SQL | Synapse Serverless SQL |
+| 🔐 Security | Azure Key Vault |
+| 🔑 Authentication | Managed Identity |
+| 📊 Reporting | Power BI |
+| 🐍 Language | PySpark |
+| ☁️ Cloud | Microsoft Azure |
 
 ---
 
-# ✅ EPIC 1 – Infrastructure & Security *(COMPLETED)*
+# 🔄 End-to-End Data Flow
 
-## ☁️ Azure Resources Deployed
+```text
+Oracle SCM Cloud CSV Files
+            │
+            ▼
+Azure Data Lake Storage (Bronze)
+            │
+            ▼
+Azure Data Factory
+            │
+            ▼
+Azure Synapse Spark
+            │
+            ▼
+Silver Layer (Parquet)
+            │
+            ▼
+Gold Layer (Star Schema)
+            │
+            ▼
+Serverless SQL
+            │
+            ▼
+Power BI Dashboards
+```
+
+---
+
+# ✅ EPIC 1 – Infrastructure & Security
+
+## ☁️ Azure Resources
 
 | Resource | Name | Region | Configuration |
 |----------|------|--------|---------------|
-| Azure Data Lake Storage Gen2 | `stlakesupply` | West Europe | Hierarchical Namespace enabled, Cool Tier, LRS |
-| Azure Data Factory V2 | `adf-supplychain-1` | West Europe | System-Assigned Managed Identity |
-| Azure Synapse Analytics | `syn-supplychain-1` | France Central* | Serverless SQL + Spark |
-| Azure Key Vault | `kv-supplychain-2026` | West Europe | Standard Tier, Soft Delete enabled |
-| Spark Pool | `sparkpool01` | France Central* | Small (4 vCPUs, 32 GB RAM), Autoscale (3–10 nodes), Auto Pause (5 mins), Spark 3.4 |
+| Azure Data Lake Storage Gen2 | `stlakesupply` | West Europe | Hierarchical Namespace, LRS, Cool Tier |
+| Azure Data Factory | `adf-supplychain-1` | West Europe | Managed Identity |
+| Azure Synapse Analytics | `syn-supplychain-1` | France Central | Spark + Serverless SQL |
+| Azure Key Vault | `kv-supplychain-2026` | West Europe | Soft Delete Enabled |
+| Spark Pool | `sparkpool01` | France Central | Spark 3.4, Auto Pause, Autoscale |
 
-> **Note:** Synapse was deployed in **France Central** due to temporary capacity limitations in West Europe for Student subscriptions.
+> **Note**
+>
+> Azure Synapse was deployed in France Central due to temporary capacity limitations in West Europe for Azure Student subscriptions.
 
-## 🗂️ Medallion Storage Layout (`stlakesupply` / `medallion` container)
+---
 
+## 🗂️ Medallion Storage Layout
+
+```text
 medallion/
-├── bronze/          # Raw CSV (immutable, date-partitioned)
-│   ├── suppliers/YYYY/MM/DD/
-│   ├── purchase_orders/YYYY/MM/DD/
-│   └── ...
-├── silver/          # Cleaned Parquet (to be implemented in Epic 3)
-│   └── ...
-├── gold/            # Star Schema (to be implemented in Epic 3)
-│   └── ...
-└── control/         # Metadata & logging
+│
+├── bronze/
+│   ├── suppliers/
+│   ├── purchase_orders/
+│   ├── deliveries/
+│   └── inventory/
+│
+├── silver/
+│   └── Parquet datasets
+│
+├── gold/
+│   └── Star Schema
+│
+└── control/
     └── ingestion_status.csv
+```
 
+---
 
-## 🔐 Security & RBAC
+## 🔐 Security Implementation
 
 | Resource | Role | Identity |
 |----------|------|----------|
-| ADLS Gen2 (`stlakesupply`) | Storage Blob Data Contributor | ADF & Synapse Managed Identities |
-| Synapse Workspace | Synapse Contributor | ADF Managed Identity |
-| Serverless SQL DB (`supplychain_db`) | `db_owner` | ADF Managed Identity |
+| ADLS Gen2 | Storage Blob Data Contributor | Azure Data Factory |
+| ADLS Gen2 | Storage Blob Data Contributor | Azure Synapse |
+| Synapse Workspace | Synapse Contributor | Azure Data Factory |
+| SQL Database | db_owner | Azure Data Factory |
 
-- **Azure Key Vault** stores `synapse-sql-admin-password`.  
-- **Principle of Least Privilege** strictly enforced (no hardcoded credentials, Managed Identities only).
+### Security Best Practices
 
----
-
-# ✅ EPIC 2 – Data Ingestion & Orchestration *(COMPLETED)*
-
-## 📂 Control Table (Metadata)
-- **Location**: `medallion/control/ingestion_status.csv`
-- **Columns**: `source_file_name`, `source_container`, `source_name`, `ingestion_status`, `ingestion_time`, `error_message`
-- **External Table** in Synapse Serverless SQL: `dbo.ext_ingestion_control` (points to the CSV via `OPENROWSET`).
-
-## 🔄 ADF Pipelines
-| Pipeline | Description |
-| :--- | :--- |
-| **`pl_copy_file_to_bronze`** (Child) | 1. `Lookup` (validates file existence). <br> 2. `Copy Data` (moves CSV from `source-files` to `bronze/{entity}/YYYY/MM/DD/`). <br> 3. `Script` (logs status to control table). |
-| **`pl_master_daily_ingestion`** (Master) | 1. `Lookup` (`Get Pending Files` – filters `ingestion_status = 'Pending'`). <br> 2. `ForEach` (iterates and executes the child pipeline). <br> 3. `Append Variable` (collects successfully processed file names). <br> 4. `If Condition` (if files were processed, runs Synapse Spark notebook). |
-
-## 🧠 Synapse Notebook: `Update_Control_Table`
-- **Purpose**: Batch-update the control CSV status from `Pending` to `Success` for all processed files.
-- **Integration**: Triggered by the master ADF pipeline. It accepts a comma-separated file list (via ADF dynamic content) and updates the CSV in ADLS.
-- **Status**: Parameterization is fully functional (single cell, no auto-generated conflicts).
+- Managed Identities only
+- No hardcoded credentials
+- Azure RBAC
+- Principle of Least Privilege
+- Azure Key Vault integration
+- Secret rotation ready
 
 ---
 
-## 💰 Estimated Daily Cost (Student Tier)
+# ✅ EPIC 2 – Data Ingestion & Orchestration
 
-| Resource | Cost |
-|----------|------|
-| ADLS Gen2 | ~€0.01/day |
-| Azure Data Factory | €0 (First 1M activities free) |
-| Synapse Serverless SQL | €0 (Minimal queries) |
-| Spark Pool | €0 (Auto Pause enabled) |
-| Azure Key Vault | ~€0.03/day |
-| **Total** | **< €0.05/day** |
+Epic 2 focuses on building a **metadata-driven ingestion framework** capable of automatically detecting new source files, copying them into the Bronze layer, recording execution metadata, and preparing the data lake for downstream Spark transformations.
+
+The solution is fully orchestrated using **Azure Data Factory** and **Azure Synapse Analytics**.
 
 ---
 
-## 📌 Project Status
+# 📂 Source Data
 
-| Epic | Status | Completion |
-| :--- | :---: | :--- |
-| **Epic 1 – Infrastructure & Security** | ✅ Done | 100% |
-| **Epic 2 – Data Ingestion & Orchestration** | ✅ Done | 100% |
+The project simulates data exported from **Oracle SCM Cloud**.
+
+The following CSV datasets are used:
+
+| Dataset | Description |
+|----------|-------------|
+| `suppliers.csv` | Supplier master data |
+| `purchase_orders.csv` | Purchase order transactions |
+| `deliveries.csv` | Delivery and shipment information |
+| `inventory.csv` | Warehouse inventory status |
+
+Each file is automatically ingested into the Bronze layer while preserving its original structure.
 
 ---
 
-## 📚 References & Best Practices Applied
+# 🗂️ Metadata Control Table
 
-- [Medallion Architecture in Azure Synapse](https://learn.microsoft.com/en-us/azure/synapse-analytics/cicd/medallion-architecture)
-- [Azure RBAC for Data Lake](https://learn.microsoft.com/en-us/azure/role-based-access-control/)
-- [ADF Parameterized Pipelines](https://learn.microsoft.com/en-us/azure/data-factory/parameters-data-flow)
+To avoid duplicate ingestion and monitor pipeline execution, a metadata control table is maintained.
+
+**Location**
+
+```text
+medallion/control/ingestion_status.csv
+```
+
+## Columns
+
+| Column | Description |
+|----------|-------------|
+| source_file_name | CSV file name |
+| source_container | Source storage container |
+| source_name | Dataset name |
+| ingestion_status | Pending / Success / Failed |
+| ingestion_time | Processing timestamp |
+| error_message | Error details if execution fails |
+
+The control table is exposed inside **Synapse Serverless SQL** through an external table.
+
+```sql
+dbo.ext_ingestion_control
+```
+
+This allows Azure Data Factory to query metadata directly using SQL.
+
+---
+
+# 🔄 Azure Data Factory Pipelines
+
+Two reusable pipelines were developed.
+
+---
+
+## 1. Child Pipeline
+
+### `pl_copy_file_to_bronze`
+
+Responsible for processing one source file.
+
+Workflow:
+
+```text
+Lookup
+      │
+      ▼
+Validate File
+      │
+      ▼
+Copy Activity
+      │
+      ▼
+Bronze Layer
+      │
+      ▼
+Update Control Table
+```
+
+### Activities
+
+| Activity | Purpose |
+|-----------|----------|
+| Lookup | Validate source file |
+| Copy Data | Copy CSV into Bronze |
+| Script | Log execution status |
+
+Destination path:
+
+```text
+bronze/{entity}/YYYY/MM/DD/
+```
+
+The pipeline is fully parameterized, allowing the same implementation to ingest any entity.
+
+---
+
+## 2. Master Pipeline
+
+### `pl_master_daily_ingestion`
+
+This pipeline orchestrates the entire ingestion process.
+
+Workflow:
+
+```text
+Lookup Pending Files
+          │
+          ▼
+ForEach
+          │
+          ▼
+Execute Child Pipeline
+          │
+          ▼
+Append Variable
+          │
+          ▼
+If Condition
+          │
+          ▼
+Run Spark Notebook
+```
+
+### Activities
+
+| Activity | Description |
+|-----------|-------------|
+| Lookup | Retrieves Pending files |
+| ForEach | Iterates through datasets |
+| Execute Pipeline | Calls Child Pipeline |
+| Append Variable | Stores processed files |
+| If Condition | Launches Spark notebook |
+
+---
+
+# ⚙️ Dynamic Parameters
+
+The pipelines use dynamic expressions to eliminate duplicated logic.
+
+Examples include:
+
+- Source file name
+- Dataset name
+- Destination folder
+- Execution date
+- Pipeline parameters
+- Notebook parameters
+
+This makes the ingestion framework reusable for any future dataset.
+
+---
+
+# 🧠 Synapse Spark Notebook
+
+Notebook Name
+
+```text
+Update_Control_Table
+```
+
+Purpose:
+
+- Receive processed file names from Azure Data Factory
+- Load the metadata CSV
+- Update status from **Pending** to **Success**
+- Save the updated control table back to ADLS
+
+Workflow
+
+```text
+ADF
+ │
+ │ File List
+ ▼
+Spark Notebook
+ │
+ ▼
+Read Control CSV
+ │
+ ▼
+Update Status
+ │
+ ▼
+Write CSV
+```
+
+The notebook receives a comma-separated list of processed files using pipeline parameters.
+
+---
+
+# 📊 Current Architecture Status
+
+```text
+Source Files
+      │
+      ▼
+Azure Data Lake
+      │
+      ▼
+Azure Data Factory
+      │
+      ▼
+Bronze Layer
+      │
+      ▼
+Metadata Update
+      │
+      ▼
+Spark Notebook
+```
+
+Epic 2 completes the ingestion layer of the Modern Data Warehouse.
+
+---
+
+# 💰 Estimated Daily Cost
+
+Using Azure Student resources together with autoscaling and auto-pause significantly reduces operating costs.
+
+| Resource | Estimated Daily Cost |
+|-----------|--------------------:|
+| ADLS Gen2 | €0.01 |
+| Azure Data Factory | Free (within student quota) |
+| Serverless SQL | Negligible |
+| Spark Pool | €0 (Auto Pause) |
+| Azure Key Vault | €0.03 |
+| **Estimated Total** | **< €0.05/day** |
+
+---
+
+# 📈 Project Roadmap
+
+| Epic | Status | Progress |
+|------|:------:|:--------:|
+| ✅ Epic 1 – Infrastructure & Security | Complete | 100% |
+| ✅ Epic 2 – Data Ingestion & Orchestration | Complete | 100% |
+| 🚧 Epic 3 – Data Transformation (Silver & Gold) | In Progress | 0% |
+| ⏳ Epic 4 – Analytics & Power BI | Planned | 0% |
+
+---
+
+# 🎯 Epic 3 Preview
+
+The next phase of the project will include:
+
+- Bronze → Silver transformations
+- Data cleansing
+- Data validation
+- Duplicate removal
+- Type casting
+- Parquet conversion
+- Partition optimization
+- Delta Lake implementation
+- Star Schema modeling
+- Fact and Dimension tables
+
+---
+
+# 📊 Epic 4 Preview
+
+The final phase will focus on business intelligence.
+
+Planned deliverables include:
+
+- Executive Dashboard
+- Procurement KPIs
+- Supplier Performance
+- Delivery Performance
+- Inventory Analysis
+- DirectQuery connectivity
+- Interactive Power BI reports
+
+---
+
+# 🏗️ Medallion Architecture Overview
+
+```text
+                Source CSV Files
+                       │
+                       ▼
+        ┌───────────────────────────┐
+        │ Bronze Layer (Raw Data)   │
+        └───────────────────────────┘
+                       │
+                       ▼
+        ┌───────────────────────────┐
+        │ Silver Layer (Clean Data) │
+        └───────────────────────────┘
+                       │
+                       ▼
+        ┌───────────────────────────┐
+        │ Gold Layer (Business)     │
+        └───────────────────────────┘
+                       │
+                       ▼
+              Serverless SQL
+                       │
+                       ▼
+                  Power BI
+```
+
+---
+
+# 📚 References
+
+- Microsoft Learn – Azure Data Lake Storage Gen2
+- Microsoft Learn – Azure Synapse Analytics
+- Microsoft Learn – Azure Data Factory
+- Microsoft Learn – Azure Key Vault
+- Microsoft Learn – Azure RBAC
+- Microsoft Learn – Azure Managed Identity
+- Microsoft Learn – Serverless SQL Pools
+- Microsoft Learn – Medallion Architecture
+- Apache Spark Documentation
+- Power BI Documentation
+
+---
+
+# 🏆 Key Technologies
+
+| Category | Technologies |
+|-----------|--------------|
+| Cloud | Microsoft Azure |
+| Storage | ADLS Gen2 |
+| ETL | Azure Data Factory |
+| Compute | Azure Synapse Spark |
+| SQL | Serverless SQL Pool |
+| Programming | PySpark |
+| Security | Managed Identity, RBAC |
+| Secrets | Azure Key Vault |
+| BI | Power BI |
+
+---
+
+# ⭐ Acknowledgements
+
+This project was developed as part of the **Big Data Engineering** curriculum to demonstrate the implementation of an enterprise-grade cloud data platform using Microsoft Azure services and modern data engineering best practices.
+
+Special thanks to Microsoft Learn documentation and the Azure ecosystem for providing the resources used throughout this project.
+
+---
+
+# 📜 License
+
+This project is distributed under the **MIT License**.
+
+Feel free to use, modify, and extend it for educational or research purposes.
+
+---
+
+<div align="center">
+
+</div>
