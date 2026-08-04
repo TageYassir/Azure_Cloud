@@ -12,35 +12,32 @@
 </p>
 
 <p align="center">
-
 Enterprise-grade Modern Data Warehouse built on Microsoft Azure following the Medallion Architecture (Bronze → Silver → Gold) for Supply Chain & Logistics Analytics.
-
 </p>
 
 ---
 
 # 📖 Project Overview
 
-This repository demonstrates the implementation of a complete cloud-native Modern Data Warehouse using Microsoft Azure services.
+This repository demonstrates a complete cloud-native Modern Data Warehouse implementation on Microsoft Azure.
 
-The project simulates a real enterprise Supply Chain Analytics platform by ingesting operational data exported from Oracle SCM Cloud into Azure Data Lake Storage Gen2.
+The platform simulates a real enterprise Supply Chain Analytics use case by ingesting operational data exported from Oracle SCM Cloud into Azure Data Lake Storage Gen2, transforming it through a Medallion architecture, and serving analytics in Power BI via Synapse Serverless SQL.
 
-Data is orchestrated using Azure Data Factory, transformed with Azure Synapse Analytics (Spark), queried using Serverless SQL, and finally exposed to Power BI for business intelligence reporting.
-
-The project is divided into multiple Epics following an incremental software engineering methodology.
+This project was developed during my **PFA internship at Smartovate** as a **2nd-year Big Data Engineering cycle d’ingénieur** student.
 
 ---
 
 # 🎯 Project Objectives
 
-- Build a complete Medallion Lakehouse architecture
+- Build an end-to-end Medallion Lakehouse architecture (Bronze → Silver → Gold)
 - Automate data ingestion using Azure Data Factory
-- Implement metadata-driven pipelines
-- Secure resources using Managed Identities and RBAC
-- Store secrets securely using Azure Key Vault
+- Implement metadata-driven and parameterized pipelines
+- Secure resources with Managed Identity + RBAC
+- Store and manage secrets securely using Azure Key Vault
 - Transform raw CSV files into analytics-ready Parquet datasets
-- Design a dimensional Star Schema
-- Deliver interactive Power BI dashboards
+- Build an incremental Gold layer with Star Schema modeling
+- Deliver business dashboards in Power BI with performance optimization
+- Implement monitoring and data quality visibility
 
 ---
 
@@ -48,17 +45,19 @@ The project is divided into multiple Epics following an incremental software eng
 
 - ✅ Azure Data Lake Storage Gen2
 - ✅ Azure Data Factory V2
-- ✅ Azure Synapse Analytics
+- ✅ Azure Synapse Analytics (Spark + Serverless SQL)
 - ✅ Spark Notebooks (PySpark)
-- ✅ Serverless SQL
+- ✅ Serverless SQL External Objects
 - ✅ Azure Key Vault
 - ✅ Managed Identity Authentication
 - ✅ Azure RBAC
 - ✅ Metadata-driven Pipelines
 - ✅ Dynamic Parameters
-- ✅ Enterprise Data Lake
 - ✅ Medallion Architecture
-- ✅ Power BI Integration
+- ✅ Star Schema Modeling
+- ✅ Incremental Fact Loading (Partitioned Parquet)
+- ✅ Power BI Integration (Hybrid Import + DirectQuery)
+- ✅ Data Quality Gate + Monitoring Dashboard
 
 ---
 
@@ -66,25 +65,72 @@ The project is divided into multiple Epics following an incremental software eng
 
 | | |
 |:--:|:--|
-| <img src="https://github.com/TageYassir.png" width="120"/> | **Yassir Tagemouati** <br><br> Big Data Engineering Student <br> Azure Data Engineering • Data Warehousing • Analytics <br><br> **GitHub:** https://github.com/TageYassir |
+| <img src="https://github.com/TageYassir.png" width="120"/> | **Yassir Tagemouati** <br><br> Big Data Engineering Student (Cycle d’Ingénieur) <br> Azure Data Engineering • Data Warehousing • Analytics <br><br> **GitHub:** [@TageYassir](https://github.com/TageYassir) |
 
 ---
 
 # 📚 Table of Contents
 
-- Project Overview
-- Solution Architecture
-- Repository Structure
-- Tech Stack
-- Data Flow
-- Epic 1 – Infrastructure & Security
-- Epic 2 – Data Ingestion & Orchestration
-- Roadmap
-- References
+- [Project Architecture](#-project-architecture)
+- [Repository Structure](#-repository-structure)
+- [Tech Stack](#-tech-stack)
+- [End-to-End Data Flow](#-end-to-end-data-flow)
+- [Epic 1 – Infrastructure & Security](#-epic-1--infrastructure--security-)
+- [Epic 2 – Data Ingestion & Orchestration](#-epic-2--data-ingestion--orchestration-)
+- [Epic 3 – Transformation (Bronze → Silver → Gold)](#-epic-3--transformation-bronze--silver--gold-)
+- [Epic 4 – Power BI Dashboards](#-epic-4--power-bi-dashboards-)
+- [Epic 5 – Monitoring & Alerting](#-epic-5--monitoring--alerting-)
+- [Roadmap](#-roadmap)
+- [References](#-references)
+- [License](#-license)
 
 ---
 
-# 🏛️ Solution Architecture
+# 🏛️ Project Architecture
+
+## Data Source
+- Simulated **Oracle SCM Cloud CSV files**:
+  - `suppliers.csv`
+  - `purchase_orders.csv`
+  - `deliveries.csv`
+  - `inventory.csv`
+- Uploaded to ADLS source container: `source-files`
+
+## Storage
+- ADLS Gen2 account: `stlakesupply`
+- Container: `medallion`
+- Folders:
+  - `bronze/`
+  - `silver/`
+  - `gold/`
+  - `control/`
+
+## Ingestion
+- Azure Data Factory: `adf-supplychain-1`
+- Parameterized + metadata-driven pipelines
+- Control-table-based orchestration
+
+## Processing
+- Azure Synapse Analytics: `syn-supplychain-1`
+- Spark Pool: `sparkpool01` for Bronze → Silver
+- Serverless SQL for Silver → Gold and semantic serving
+
+## Serving
+- Power BI connected to Synapse Serverless SQL (`gold_db`)
+- Hybrid model:
+  - Import for dimensions and aggregations
+  - DirectQuery for detailed facts
+
+## Security
+- Managed Identity + RBAC
+- Roles used:
+  - Storage Blob Data Contributor
+  - Synapse Contributor
+  - db_owner
+
+---
+
+# 🖼️ Solution Diagrams
 
 ## Overall Azure Architecture
 
@@ -96,8 +142,6 @@ The project is divided into multiple Epics following an incremental software eng
 <b>Figure 1.</b> Enterprise Azure architecture implementing the Medallion Lakehouse.
 </p>
 
----
-
 ## Data Ingestion Pipeline
 
 <p align="center">
@@ -107,8 +151,6 @@ The project is divided into multiple Epics following an incremental software eng
 <p align="center">
 <b>Figure 2.</b> Azure Data Factory orchestration workflow.
 </p>
-
----
 
 ## Gold Layer Star Schema
 
@@ -125,23 +167,17 @@ The project is divided into multiple Epics following an incremental software eng
 # 📁 Repository Structure
 
 ```text
-Modern-Data-Warehouse/
+Azure_Cloud/
 │
 ├── data/
-│
 ├── images/
 │   ├── AzureArch.drawio.png
 │   ├── AzurePLFlow.drawio.png
 │   └── GoldShema.drawio.png
-│
 ├── notebooks/
-│
 ├── sql/
-│
 ├── pipelines/
-│
 ├── docs/
-│
 └── README.md
 ```
 
@@ -181,7 +217,7 @@ Azure Synapse Spark
 Silver Layer (Parquet)
             │
             ▼
-Gold Layer (Star Schema)
+Gold Layer (Star Schema + Facts)
             │
             ▼
 Serverless SQL
@@ -192,7 +228,9 @@ Power BI Dashboards
 
 ---
 
-# ✅ EPIC 1 – Infrastructure & Security
+# ✅ Epic 1 – Infrastructure & Security ✅ COMPLETED
+
+All core resources were deployed and connected successfully.
 
 ## ☁️ Azure Resources
 
@@ -204,34 +242,7 @@ Power BI Dashboards
 | Azure Key Vault | `kv-supplychain-2026` | West Europe | Soft Delete Enabled |
 | Spark Pool | `sparkpool01` | France Central | Spark 3.4, Auto Pause, Autoscale |
 
-> **Note**
->
-> Azure Synapse was deployed in France Central due to temporary capacity limitations in West Europe for Azure Student subscriptions.
-
----
-
-## 🗂️ Medallion Storage Layout
-
-```text
-medallion/
-│
-├── bronze/
-│   ├── suppliers/
-│   ├── purchase_orders/
-│   ├── deliveries/
-│   └── inventory/
-│
-├── silver/
-│   └── Parquet datasets
-│
-├── gold/
-│   └── Star Schema
-│
-└── control/
-    └── ingestion_status.csv
-```
-
----
+> **Note:** Synapse was deployed in France Central due to temporary student subscription capacity constraints in West Europe.
 
 ## 🔐 Security Implementation
 
@@ -242,300 +253,345 @@ medallion/
 | Synapse Workspace | Synapse Contributor | Azure Data Factory |
 | SQL Database | db_owner | Azure Data Factory |
 
-### Security Best Practices
-
+### Security Best Practices Applied
 - Managed Identities only
 - No hardcoded credentials
 - Azure RBAC
-- Principle of Least Privilege
-- Azure Key Vault integration
-- Secret rotation ready
+- Principle of least privilege
+- Key Vault integration
+- Secret rotation readiness
 
 ---
 
-# ✅ EPIC 2 – Data Ingestion & Orchestration
+# ✅ Epic 2 – Data Ingestion & Orchestration ✅ COMPLETED
 
-Epic 2 focuses on building a **metadata-driven ingestion framework** capable of automatically detecting new source files, copying them into the Bronze layer, recording execution metadata, and preparing the data lake for downstream Spark transformations.
+## 📂 Source Data
+- `suppliers.csv`
+- `purchase_orders.csv`
+- `deliveries.csv`
+- `inventory.csv`
 
-The solution is fully orchestrated using **Azure Data Factory** and **Azure Synapse Analytics**.
+## 🗂️ Metadata Control Table
 
----
-
-# 📂 Source Data
-
-The project simulates data exported from **Oracle SCM Cloud**.
-
-The following CSV datasets are used:
-
-| Dataset | Description |
-|----------|-------------|
-| `suppliers.csv` | Supplier master data |
-| `purchase_orders.csv` | Purchase order transactions |
-| `deliveries.csv` | Delivery and shipment information |
-| `inventory.csv` | Warehouse inventory status |
-
-Each file is automatically ingested into the Bronze layer while preserving its original structure.
-
----
-
-# 🗂️ Metadata Control Table
-
-To avoid duplicate ingestion and monitor pipeline execution, a metadata control table is maintained.
-
-**Location**
-
+Control file path:
 ```text
 medallion/control/ingestion_status.csv
 ```
 
-## Columns
+Columns:
+- `source_file_name`
+- `source_container`
+- `source_name`
+- `ingestion_status` (Pending / Success / Failed)
+- `ingestion_time`
+- `error_message`
 
-| Column | Description |
-|----------|-------------|
-| source_file_name | CSV file name |
-| source_container | Source storage container |
-| source_name | Dataset name |
-| ingestion_status | Pending / Success / Failed |
-| ingestion_time | Processing timestamp |
-| error_message | Error details if execution fails |
-
-The control table is exposed inside **Synapse Serverless SQL** through an external table.
-
+Exposed in Synapse Serverless SQL as:
 ```sql
 dbo.ext_ingestion_control
 ```
 
-This allows Azure Data Factory to query metadata directly using SQL.
+## 🔄 ADF Pipelines
 
----
-
-# 🔄 Azure Data Factory Pipelines
-
-Two reusable pipelines were developed.
-
----
-
-## 1. Child Pipeline
-
-### `pl_copy_file_to_bronze`
-
-Responsible for processing one source file.
-
+### Child Pipeline: `pl_copy_file_to_bronze`
 Workflow:
-
 ```text
-Lookup
-      │
-      ▼
-Validate File
-      │
-      ▼
-Copy Activity
-      │
-      ▼
-Bronze Layer
-      │
-      ▼
-Update Control Table
+Lookup → Copy Data → Script (log status)
 ```
+- Validates and ingests one source file
+- Parameterized and reusable across all entities
 
-### Activities
-
-| Activity | Purpose |
-|-----------|----------|
-| Lookup | Validate source file |
-| Copy Data | Copy CSV into Bronze |
-| Script | Log execution status |
-
-Destination path:
-
-```text
-bronze/{entity}/YYYY/MM/DD/
-```
-
-The pipeline is fully parameterized, allowing the same implementation to ingest any entity.
-
----
-
-## 2. Master Pipeline
-
-### `pl_master_daily_ingestion`
-
-This pipeline orchestrates the entire ingestion process.
-
+### Master Pipeline: `pl_master_daily_ingestion`
 Workflow:
+1. Lookup pending files (`ingestion_status = 'Pending'`)
+2. ForEach → Execute child pipeline
+3. Append Variable stores processed files
+4. If Condition runs Synapse notebook `Update_Control_Table` once
 
+Result:
+- Bronze ingestion completed to flat CSV format:
 ```text
-Lookup Pending Files
-          │
-          ▼
-ForEach
-          │
-          ▼
-Execute Child Pipeline
-          │
-          ▼
-Append Variable
-          │
-          ▼
-If Condition
-          │
-          ▼
-Run Spark Notebook
+bronze/<entity>.csv
+```
+(e.g., `bronze/suppliers.csv`)
+
+---
+
+# ✅ Epic 3 – Transformation (Bronze → Silver → Gold) ✅ COMPLETED
+
+## Bronze → Silver (PySpark)
+
+Notebook: `Transform_Bronze_To_Silver`  
+Spark Pool: `sparkpool01`
+
+Parameters:
+- `entity_name`
+- `processing_date` (`yyyy-MM-dd`)
+
+Logic:
+- Reads flat Bronze CSV (`bronze/<entity>.csv`)
+- Applies entity-specific schemas
+- Trims strings and casts data types
+- Deduplicates by natural keys
+- Writes partitioned Parquet to:
+```text
+silver/<entity>/year=YYYY/month=MM/day=DD/
 ```
 
-### Activities
+Inventory behavior:
+- Daily full snapshot overwrite for current day partition (dynamic overwrite)
 
-| Activity | Description |
-|-----------|-------------|
-| Lookup | Retrieves Pending files |
-| ForEach | Iterates through datasets |
-| Execute Pipeline | Calls Child Pipeline |
-| Append Variable | Stores processed files |
-| If Condition | Launches Spark notebook |
+Error behavior:
+- Exceptions are re-raised to stop pipeline execution on failure
 
----
+### Spark Performance Optimizations Applied
+- DataFrame caching after CSV read
+- Repartition by `year, month, day` before write
+- Adaptive Query Execution (AQE) enabled
 
-# ⚙️ Dynamic Parameters
+Benefits observed:
+- Reduced redundant scans
+- Mitigated small files issue
+- Improved transformation speed and downstream read performance
 
-The pipelines use dynamic expressions to eliminate duplicated logic.
+## Silver Data Quality Gate
 
-Examples include:
+Notebook: `DQ_Silver` (supports single entity or `ALL`)
 
-- Source file name
-- Dataset name
-- Destination folder
-- Execution date
-- Pipeline parameters
-- Notebook parameters
+Checks:
+- Row count > 0
+- No null natural keys
+- Key uniqueness
 
-This makes the ingestion framework reusable for any future dataset.
-
----
-
-# 🧠 Synapse Spark Notebook
-
-Notebook Name
-
+Logs written to:
 ```text
-Update_Control_Table
+control/quality_gate_status.csv
 ```
 
-Purpose:
-
-- Receive processed file names from Azure Data Factory
-- Load the metadata CSV
-- Update status from **Pending** to **Success**
-- Save the updated control table back to ADLS
-
-Workflow
-
-```text
-ADF
- │
- │ File List
- ▼
-Spark Notebook
- │
- ▼
-Read Control CSV
- │
- ▼
-Update Status
- │
- ▼
-Write CSV
+Exposed in Synapse as:
+```sql
+dbo.ext_quality_gate_status
 ```
 
-The notebook receives a comma-separated list of processed files using pipeline parameters.
+Behavior:
+- Failing checks raise exceptions and stop orchestration
 
----
+## ADF Silver Orchestration
 
-# 📊 Current Architecture Status
+### `pl_silver_entity`
+- Executes transformation notebook (optional entity-level DQ)
 
+### `pl_process_all_silver_entities`
+- ForEach over:
+  - `suppliers`
+  - `purchase_orders`
+  - `deliveries`
+  - `inventory`
+- Calls transformation pipeline for each entity
+
+### `pl_master_silver_processing`
+1. Lookup ingestion aggregate status from `dbo.ext_ingestion_control`
+   - Returns `ALL_SUCCESS` / `SOME_FAILED`
+2. If Condition:
+   - True (`ALL_SUCCESS`):
+     - Execute `pl_process_all_silver_entities`
+     - Execute `DQ_Silver` (ALL)
+     - Execute `Build Gold Layer` (Script)
+   - False:
+     - Fail activity with `BRONZE_INCOMPLETE`
+
+### Pipeline Chaining
+At the end of `pl_master_daily_ingestion`, an Execute Pipeline activity calls `pl_master_silver_processing` with:
 ```text
-Source Files
-      │
-      ▼
-Azure Data Lake
-      │
-      ▼
-Azure Data Factory
-      │
-      ▼
-Bronze Layer
-      │
-      ▼
-Metadata Update
-      │
-      ▼
-Spark Notebook
+processing_date = utcNow()
 ```
 
-Epic 2 completes the ingestion layer of the Modern Data Warehouse.
+## Gold Layer (Serverless SQL: CETAS + Views)
+
+Script activity: `Build Gold Layer` (NonQuery)  
+Parameterized by `processing_date`.
+
+### Dimensions (as Views, latest partition only)
+- `dim_supplier`
+- `dim_product`
+- `dim_warehouse`
+- Surrogate keys generated using `ROW_NUMBER()`
+- `dim_date` built as static external table (2024–2028)
+
+### Facts (incremental daily Parquet partitions)
+- `fact_orders/year=YYYY/month=MM/day=DD/`
+- `fact_deliveries/year=YYYY/month=MM/day=DD/`
+
+Process details:
+- Temporary CETAS tables are dropped after write
+- Persisted Parquet remains in storage
+- Union views (`fact_orders`, `fact_deliveries`) use wildcard `OPENROWSET`
+- Historical data is not rescanned (fully incremental accumulation)
 
 ---
 
-# 💰 Estimated Daily Cost
+# ✅ Epic 4 – Power BI Dashboards ✅ COMPLETED
 
-Using Azure Student resources together with autoscaling and auto-pause significantly reduces operating costs.
+## Semantic Model & Connectivity
+- Connected Power BI Desktop to Synapse Serverless SQL endpoint (`gold_db`)
+- Imported dimensions and used DirectQuery for facts
+- Implemented star schema with single-direction 1:* relationships
 
-| Resource | Estimated Daily Cost |
-|-----------|--------------------:|
-| ADLS Gen2 | €0.01 |
-| Azure Data Factory | Free (within student quota) |
-| Serverless SQL | Negligible |
-| Spark Pool | €0 (Auto Pause) |
-| Azure Key Vault | €0.03 |
-| **Estimated Total** | **< €0.05/day** |
+## DAX Measures Implemented
+- `Total Spend`
+- `Total Orders`
+- `On Time Delivery %`
+- `OTIF %`
+
+## Page 1 – Supply Chain Overview
+- KPI cards
+- Slicers (Year, Supplier, Warehouse)
+- Clustered bar: Spend by Supplier
+- Line chart: On-Time Delivery trend
+- Donut chart: Order status breakdown
+- Top 5 products by spend
+
+## Page 2 – Supplier Detail (Drill-Through)
+Drill target:
+- `dim_supplier[supplier_name]`
+
+Components:
+- Supplier profile banner
+- Monthly spend area chart
+- Delivery health breakdown
+- Itemized audit matrix
+
+## Power BI Performance Optimization ✅ COMPLETED
+
+### User-Defined Aggregations
+Created Import-mode aggregation tables:
+- `Fact Orders Agg`
+- `Fact Deliveries Agg`
+
+Pre-aggregated metrics include:
+- TotalSpend
+- OrderCount
+- TotalDelivered
+- Additional KPI-supporting aggregates
+
+### Month-Level Date Surrogate Key
+Calculated column:
+```text
+MonthDateSK = (year*10000) + (month*100) + 1
+```
+Mapped to:
+- `dim_date[date_sk]` at month grain
+
+### Aggregation Relationships
+Linked aggregation tables to:
+- `dim_supplier`
+- `dim_product`
+- `dim_warehouse`
+- `dim_date` (via `MonthDateSK`)
+
+### Aggregation Mappings
+Configured mappings from DirectQuery facts:
+- `order_date_sk` / `delivery_date_sk` → `MonthDateSK`
+- Measure mappings with high precedence
+
+Result:
+- Executive and high-level visuals served from Import cache
+- DirectQuery reserved for detailed drill-through
+
+### DirectQuery Tuning
+- Increased “Maximum connections per data source” to **10**
+
+### Validation
+- Performance Analyzer confirmed sub-second response for aggregated visuals without DirectQuery overhead on KPI views
 
 ---
 
-# 📈 Project Roadmap
+# ✅ Epic 5 – Monitoring & Alerting ✅ COMPLETED
+
+## Data Quality & Pipeline Health Visual Monitoring (Power BI) ✅
+
+Data source:
+```sql
+dbo.ext_quality_gate_status
+```
+
+### DAX Measures
+
+**LastRunStatus**
+```dax
+LastRunStatus = 
+VAR MaxProcDate = MAX(ext_quality_gate_status[processing_date])
+RETURN
+IF(
+    CALCULATE(
+        COUNTROWS(ext_quality_gate_status),
+        ext_quality_gate_status[processing_date] = MaxProcDate,
+        ext_quality_gate_status[status] = "FAIL"
+    ) > 0,
+    "FAILURES FOUND",
+    "ALL PASSED"
+)
+```
+
+**TotalFailures**
+```dax
+TotalFailures = 
+VAR MaxProcDate = MAX(ext_quality_gate_status[processing_date])
+RETURN
+CALCULATE(
+    COUNTROWS(ext_quality_gate_status),
+    ext_quality_gate_status[processing_date] = MaxProcDate,
+    ext_quality_gate_status[status] = "FAIL"
+)
+```
+
+**TotalPasses**
+```dax
+TotalPasses = 
+VAR MaxProcDate = MAX(ext_quality_gate_status[processing_date])
+RETURN
+CALCULATE(
+    COUNTROWS(ext_quality_gate_status),
+    ext_quality_gate_status[processing_date] = MaxProcDate,
+    ext_quality_gate_status[status] = "PASS"
+)
+```
+
+### Page 3 Dashboard Components
+- Executive status banner card with conditional formatting
+  - `FAILURES FOUND` → soft red
+  - `ALL PASSED` → soft green
+- KPI cards: Total failures / total passes
+- Trend chart: PASS vs FAIL by processing date
+- Detailed quality audit table
+- Date slicer for historical exploration
+
+## ADF Failure Notifications ✅ IMPLEMENTED
+
+Automated alerting for:
+- `pl_master_daily_ingestion`
+- `pl_master_silver_processing`
+
+Implementation includes:
+- Azure Monitor alert rules on failed pipeline runs
+- Action Group configuration (email/webhook-ready)
+- Operational notifications integrated into monitoring workflow
+
+---
+
+# 📈 Project Roadmap (Final Status)
 
 | Epic | Status | Progress |
 |------|:------:|:--------:|
 | ✅ Epic 1 – Infrastructure & Security | Complete | 100% |
 | ✅ Epic 2 – Data Ingestion & Orchestration | Complete | 100% |
-| 🚧 Epic 3 – Data Transformation (Silver & Gold) | In Progress | 0% |
-| ⏳ Epic 4 – Analytics & Power BI | Planned | 0% |
+| ✅ Epic 3 – Transformation (Silver & Gold) | Complete | 100% |
+| ✅ Epic 4 – Analytics & Power BI | Complete | 100% |
+| ✅ Epic 5 – Monitoring & Alerting | Complete | 100% |
 
 ---
 
-# 🎯 Epic 3 Preview
-
-The next phase of the project will include:
-
-- Bronze → Silver transformations
-- Data cleansing
-- Data validation
-- Duplicate removal
-- Type casting
-- Parquet conversion
-- Partition optimization
-- Delta Lake implementation
-- Star Schema modeling
-- Fact and Dimension tables
-
----
-
-# 📊 Epic 4 Preview
-
-The final phase will focus on business intelligence.
-
-Planned deliverables include:
-
-- Executive Dashboard
-- Procurement KPIs
-- Supplier Performance
-- Delivery Performance
-- Inventory Analysis
-- DirectQuery connectivity
-- Interactive Power BI reports
-
----
-
-# 🏗️ Medallion Architecture Overview
+# 🏗️ Medallion Architecture Summary
 
 ```text
                 Source CSV Files
@@ -564,6 +620,19 @@ Planned deliverables include:
 
 ---
 
+# 💰 Estimated Daily Cost
+
+| Resource | Estimated Daily Cost |
+|-----------|--------------------:|
+| ADLS Gen2 | €0.01 |
+| Azure Data Factory | Free (within student quota) |
+| Serverless SQL | Negligible |
+| Spark Pool | €0 (Auto Pause) |
+| Azure Key Vault | €0.03 |
+| **Estimated Total** | **< €0.05/day** |
+
+---
+
 # 📚 References
 
 - Microsoft Learn – Azure Data Lake Storage Gen2
@@ -587,7 +656,7 @@ Planned deliverables include:
 | Storage | ADLS Gen2 |
 | ETL | Azure Data Factory |
 | Compute | Azure Synapse Spark |
-| SQL | Serverless SQL Pool |
+| SQL | Synapse Serverless SQL Pool |
 | Programming | PySpark |
 | Security | Managed Identity, RBAC |
 | Secrets | Azure Key Vault |
@@ -597,9 +666,9 @@ Planned deliverables include:
 
 # ⭐ Acknowledgements
 
-This project was developed as part of the **Big Data Engineering** curriculum to demonstrate the implementation of an enterprise-grade cloud data platform using Microsoft Azure services and modern data engineering best practices.
+This project was developed as part of the **Big Data Engineering** curriculum and my **PFA internship at Smartovate** to demonstrate a complete enterprise-ready cloud data platform on Azure.
 
-Special thanks to Microsoft Learn documentation and the Azure ecosystem for providing the resources used throughout this project.
+Special thanks to Microsoft Learn and the Azure ecosystem for the technical resources used throughout implementation.
 
 ---
 
@@ -612,5 +681,5 @@ Feel free to use, modify, and extend it for educational or research purposes.
 ---
 
 <div align="center">
-
+  <b>Built with Azure • Synapse • Data Factory • Power BI</b>
 </div>
