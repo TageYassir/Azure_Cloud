@@ -627,9 +627,9 @@ Implementation includes:
 | ADLS Gen2 | €0.01 |
 | Azure Data Factory | Free (within student quota) |
 | Serverless SQL | Negligible |
-| Spark Pool | €0 (Auto Pause) |
+| Spark Pool | €0.68 (Auto Pause) |
 | Azure Key Vault | €0.03 |
-| **Estimated Total** | **< €0.05/day** |
+| **Estimated Total** | **< €1/day** |
 
 ---
 
