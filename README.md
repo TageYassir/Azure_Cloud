@@ -164,6 +164,28 @@ This project was developed during my **PFA internship at Smartovate** as a **2nd
 
 ---
 
+# 🎬 Video Demo — Pipeline in Action
+
+I will upload a walkthrough video to YouTube showing the full pipeline working end-to-end (ADF ingestion, Synapse transformations, Gold layer, and Power BI). Replace the placeholder link below with your YouTube URL or video ID when available.
+
+- Watch the demo: [Watch the pipeline demo on YouTube](https://youtu.be/YOUR_VIDEO_ID_HERE)
+
+- Embed a clickable thumbnail (replace YOUR_VIDEO_ID_HERE with the YouTube video ID):
+
+  [![Pipeline Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID_HERE/maxresdefault.jpg)](https://youtu.be/YOUR_VIDEO_ID_HERE)
+
+Tips:
+- Replace YOUR_VIDEO_ID_HERE with the video's ID (the part after "v=" in the YouTube URL) or paste the full https://youtu.be/... link.
+- Optionally add timestamps below the link to highlight segments (e.g., 0:00 — Intro, 1:15 — ADF run, 3:10 — Synapse notebooks, 6:45 — Power BI visuals).
+
+Example timestamps:
+
+- 0:00 — Intro & architecture overview
+- 1:15 — Triggering ADF master ingestion pipeline
+- 3:10 — Bronze → Silver Spark transformations in Synapse
+- 5:20 — Building Gold layer and CETAS
+- 6:45 — Power BI report walkthrough and performance notes
+
 # 📁 Repository Structure
 
 ```text
